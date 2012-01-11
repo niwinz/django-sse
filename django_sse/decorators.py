@@ -11,7 +11,8 @@ class Sse(object):
 
     def __call__(self, viewfunc):
         response = Response()
-        response.set_retry(self.retry)
+        if self.retry is not None:
+            response.set_retry(self.retry)
 
         def _get_last_id(request):
             if 'HTTP_LAST_EVENT_ID' in request.META:

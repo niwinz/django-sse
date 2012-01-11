@@ -14,7 +14,7 @@ class Home(View):
 from django_sse.decorators import is_sse_method
 
 class MyEvents(View):
-    @is_sse_method()
+    @is_sse_method
     def get(self, request):
         now_date = unicode(now())
 
