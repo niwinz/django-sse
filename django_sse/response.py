@@ -17,6 +17,10 @@ class Response(object):
     _prev_event = 'message'
     _rx_event = re.compile(r'^add_([\w\d\_]+)$', flags=re.U)
     _last_id = None
+    _current_id = None
+
+    def __init__(self):
+        self._current_id = self.uuid()
 
     def _init_buffer(self):
         """
@@ -24,7 +28,7 @@ class Response(object):
         """
 
         self._buffer = io.StringIO()
-        self._buffer.write(u'retry: {0}\nid: {1}\n\n'.format(self._retry, self.uuid))
+        self._buffer.write(u'retry: {0}\nid: {1}\n\n'.format(self._retry, self._current_id))
 
     def set_retry(self, retrynum):
         """
@@ -72,6 +76,10 @@ class Response(object):
         return functools.partial(self.add_message, event=res.group(1))
         
     def get_unicode(self, close=True):
+        """
+        Obtain raw unicode buffer content.
+        """
+
         result = self._buffer.getvalue()
         if close:
             self._buffer.close()
@@ -79,14 +87,30 @@ class Response(object):
 
         return result
     
-    @property
     def uuid(self):
         return unicode(uuid.uuid1())
 
     @property
     def last_id(self):
+        """ 
+        Obtain the last uuid, if this is a first
+        response, last_id is None.
+        """
+
         return self._last_id
 
     @property
+    def current_id(self):
+        """
+        Obtain current responde uuid. 
+        """
+
+        return self._current_id
+
+    @property
     def is_first(self):
+        """
+        Return True if this is a first response.
+        """
+
         return self.last_id is None

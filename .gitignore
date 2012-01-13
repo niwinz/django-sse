@@ -2,6 +2,6 @@
 .*swp
 doc/build
 dist
-django_orm.egg-info
 versiontools*
 build*
+django_sse.egg-info

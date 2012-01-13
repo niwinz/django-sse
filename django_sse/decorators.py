@@ -31,8 +31,11 @@ class Sse(object):
 
 
 def is_sse_method(retry=2000):
+    """
+    Declare class view method as sse method.
+    """
+
     if isinstance(retry, (types.FunctionType, types.MethodType)):
-        sseinstance = Sse()(retry)
-    else:
-        sseinstance = Sse(retry)
-    return sseinstance
+        return Sse()(retry)
+    
+    return Sse(retry)
