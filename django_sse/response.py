@@ -15,7 +15,7 @@ class Response(object):
     _buffer = None
     _current_event = 'message'
     _prev_event = 'message'
-    _rx_event = re.compile(r'^add_([\w\d\_]+)$', flags=re.U)
+    _rx_event = re.compile(r'^event_([\w\d\_]+)$', flags=re.U)
     _last_id = None
     _current_id = None
 
@@ -62,7 +62,7 @@ class Response(object):
     def __getattr__(self, attr):
         """
         Make a dinamic method for add messages to specific events
-        like add_<eventname>(text="Hello")
+        like event_<eventname>(text="Hello")
 
         Examples:
             response.add_foo(text="bar")

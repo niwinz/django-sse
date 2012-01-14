@@ -19,4 +19,4 @@ class MyEvents(View):
         now_date = unicode(now())
 
         self.sse.add_message('message', 'Hello World')
-        self.sse.add_date(text=now_date)
+        self.sse.event_date(text=now_date)

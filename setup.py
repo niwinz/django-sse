@@ -2,6 +2,8 @@ from setuptools import setup, find_packages
 
 description="""
 HTML5 Server-Side Events for Django 1.3, 1.4+
+
+Documentation: http://www.niwi.be/post/django-sse-html5-server-sent-events-django/
 """
 
 long_description = """"""
@@ -37,6 +39,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
         'Topic :: Internet :: WWW/HTTP',
     ]
 )

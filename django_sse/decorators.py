@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
-from .response import Response
+from .response import Response, DEFAULT_RETRY_TIMEOUT
+from . import __version__ as v
 import functools
 import types
 
@@ -24,13 +25,16 @@ class Sse(object):
             self.sse = response
             self.sse._last_id = _get_last_id(request)
             viewfunc(self, request, *args, **kwargs)
-            return HttpResponse(response.get_unicode(),
+            http_response = HttpResponse(response.get_unicode(),
                 mimetype='text/event-stream')
+            http_response['Cache-Control'] = 'no-cache'
+            http_response['Software'] = 'django-sse {0[0]}.{0[1]}'.format(v)
+            return http_response
 
         return _inner
 
 
-def is_sse_method(retry=2000):
+def is_sse_method(retry=DEFAULT_RETRY_TIMEOUT):
     """
     Declare class view method as sse method.
     """
