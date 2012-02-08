@@ -9,6 +9,7 @@ import re
 import uuid
 
 DEFAULT_RETRY_TIMEOUT = getattr(settings, 'DJANGO_SSE_DEFAULT_RETRY', 2000)
+DEFAULT_SLEEP = getattr(settings, 'DJANGO_SSE_DEFAULT_SLEEP', 1)
 
 class Response(object):
     _retry = DEFAULT_RETRY_TIMEOUT
@@ -21,12 +22,6 @@ class Response(object):
 
     def __init__(self):
         self._current_id = self.uuid()
-
-    def _init_buffer(self):
-        """
-        Construct new empty buffer on demand.
-        """
-
         self._buffer = io.StringIO()
         self._buffer.write(u'retry: {0}\nid: {1}\n\n'.format(self._retry, self._current_id))
 
@@ -42,9 +37,6 @@ class Response(object):
         """
         Add messaget with eventname to the buffer.
         """
-
-        if self._buffer is None:
-            self._init_buffer()
 
         buffer_texts = [force_unicode(text)]
         if split:
@@ -75,16 +67,14 @@ class Response(object):
             return super(Response, self).__getattr__(attr)
         return functools.partial(self.add_message, event=res.group(1))
         
-    def get_unicode(self, close=True):
+    def get_unicode(self):
         """
         Obtain raw unicode buffer content.
         """
 
         result = self._buffer.getvalue()
-        if close:
-            self._buffer.close()
-            self._buffer = None
-
+        self._buffer.close()
+        self._buffer = io.StringIO()
         return result
     
     def uuid(self):
