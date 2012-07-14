@@ -17,6 +17,7 @@ import os, sys
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_sse_example.settings")
 sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

@@ -5,6 +5,10 @@ from django.views.generic import View
 from django.template import RequestContext
 from django.utils.timezone import now
 
+from django_sse.views import BaseSseView
+
+import time
+
 class Home1(View):
     def get(self, request):
         return render_to_response('home.html', {},
@@ -17,20 +21,9 @@ class Home2(View):
             context_instance=RequestContext(request))
 
 
-from django_sse.decorators import is_sse_method, is_stream_sse_method
-
-class MyEvents(View):
-    @is_sse_method
-    def get(self, request):
-        now_date = unicode(now())
-
-        self.sse.add_message('message', 'Hello World')
-        self.sse.event_date(text=now_date)
-
-
-class MyEvents2(View):
-    @is_stream_sse_method(sleep=1)
-    def get(self, request):
-        now_date = unicode(now())
-        self.sse.add_message('message', 'Hello World')
-        self.sse.event_date(text=now_date)
+class MySseEvents(BaseSseView):
+    def iterator(self):
+        while True:
+            self.sse.add_message("date", unicode(now()))
+            time.sleep(1)
+            yield

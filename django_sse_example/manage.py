@@ -2,6 +2,7 @@
 import os, sys
 
 sys.path.insert(0, '..')
+#sys.path.insert(0, '/home/niwi/devel/sse')
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_sse_example.settings")

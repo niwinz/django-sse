@@ -7,22 +7,15 @@
         $(document).ready(function() {
             var source = new EventSource('/events1/');
             var events_dom = $("#events");
-            var greeting_dom = $("#greeting");
-
-            source.addEventListener('message', function(e) {
-                greeting_dom.html("<div>" + e.data + "</div>");
-            });
 
             source.addEventListener("date", function(e) {
-                events_dom.append("<div>" + e.data + "</div>");
+                events_dom.html("<div>" + e.data + "</div>");
             });
         });
         </script>
     </head>
     <body>
         <h2>Events emited by server</h2>
-        <div id="greeting">
-        </div>
         <div id="events">
         </div>
     </body>
