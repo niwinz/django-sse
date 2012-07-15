@@ -20,7 +20,7 @@ class BaseSseView(View):
             for bufferitem in self.sse:
                 yield bufferitem
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         self.sse = Sse()
 
         response = HttpResponse(self._iterator(), content_type="text/event-stream")
