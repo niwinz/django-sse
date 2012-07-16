@@ -32,7 +32,7 @@ The idea is to create a stream of data to send the current timestamp every 1 sec
         def iterator(self):
             while True:
                 self.sse.add_message("time", str(time.time()))
-                yield
+                Yield
 
 
 The ``iterator()`` method must be a generator of data stream. The view has ``sse`` object,
@@ -92,6 +92,11 @@ Example::
     class MyRedisQueueView(RedisQueueView):
         def get_redis_channel(self):
             return self.kwargs['channel'] or self.redis_channel
+
+Contributors:
+-------------
+
+* Flavio Curella / https://github.com/fcurella
 
 
 License
