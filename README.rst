@@ -33,6 +33,7 @@ The idea is to create a stream of data to send the current timestamp every 1 sec
             while True:
                 self.sse.add_message("time", str(time.time()))
                 yield
+                time.sleep(1)
 
 
 The ``iterator()`` method must be a generator of data stream. The view has ``sse`` object,
