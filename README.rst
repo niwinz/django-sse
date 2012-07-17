@@ -32,14 +32,14 @@ The idea is to create a stream of data to send the current timestamp every 1 sec
         def iterator(self):
             while True:
                 self.sse.add_message("time", str(time.time()))
-                Yield
+                yield
 
 
 The ``iterator()`` method must be a generator of data stream. The view has ``sse`` object,
 for more information, see sse_ module documentation.
 
-The acomulated data on sse is flushed to the client every iteration (yield statement),
-you can flush sometimes as you need.
+The acomulated data on sse is flushed to the client every iteration (yield statement).
+You can flush the buffer, sometimes as you need.
 
 
 Using a redis as message queue for push messages to client
@@ -68,7 +68,7 @@ with a simple api::
         send_event("myevent", "mydata", channel="foo")
         return HttpResponse("dummy response")
 
-``RedisQueueView`` precises of redis, put your connection params on yout ``settings.py``::
+``RedisQueueView`` precises of redis, put your connection params on your ``settings.py``::
 
     REDIS_SSEQUEUE_CONNECTION_SETTINGS = {
         'location': 'localhost:6379',
@@ -85,13 +85,13 @@ Example::
 
     # urls.py
     urlpatterns = patterns('',
-        url(r'^sse/(?P<channel>\w+)/$', RedisQueueView.as_view(redis_channel="foo"), name="stream1"),
+        url(r'^sse/(?P<channel>\w+)/$', MyRedisQueueView.as_view(redis_channel="foo"), name="stream1"),
     )
-
 
     class MyRedisQueueView(RedisQueueView):
         def get_redis_channel(self):
             return self.kwargs['channel'] or self.redis_channel
+
 
 Contributors:
 -------------

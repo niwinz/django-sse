@@ -1,12 +1,9 @@
 from setuptools import setup, find_packages
 
 description="""
-HTML5 Server-Side Events for Django 1.3, 1.4+
-
-Documentation: http://www.niwi.be/post/django-sse-html5-server-sent-events-django/
+HTML5 Server-Side Events for Django 1.3+
 """
 
-long_description = """"""
 
 
 setup(
@@ -16,7 +13,6 @@ setup(
     license='BSD',
     platforms=['OS Independent'],
     description = description.strip(),
-    long_description = long_description.strip(),
     author = 'Andrei Antoukh',
     author_email = 'niwi@niwi.be',
     maintainer = 'Andrei Antoukh',
