@@ -23,7 +23,9 @@ permanent blocking stream.
 Implementing own view with sample stream
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The idea is to create a stream of data to send the current timestamp every 1 second to the client::
+The idea is to create a stream of data to send the current timestamp every 1 second to the client:
+
+.. code-block:: python
 
     from django_sse.views import BaseSseView
     import time
@@ -47,7 +49,9 @@ Using a redis as message queue for push messages to client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``django-sse`` currently implements a redis helper for simple enqueuing messages for push to a clients.
-For use it, the first step is a url declaration::
+For use it, the first step is a url declaration:
+
+.. code-block:: python
 
     from django.conf.urls import patterns, include, url
     from django_sse.redisqueue import RedisQueueView
@@ -60,7 +64,9 @@ This, on new connection is created, opens connection to redis and subscribe to a
 new messages received from redis, it flushes theese to client.
 
 And the second step, your can push messages to the queue in any other normal django views
-with a simple api::
+with a simple api:
+
+.. code-block:: python
 
     from django.http import HttpResponse
     from django_sse.redisqueue import send_event
@@ -69,7 +75,9 @@ with a simple api::
         send_event("myevent", "mydata", channel="foo")
         return HttpResponse("dummy response")
 
-``RedisQueueView`` precises of redis, put your connection params on your ``settings.py``::
+``RedisQueueView`` precises of redis, put your connection params on your ``settings.py``:
+
+.. code-block:: python
 
     REDIS_SSEQUEUE_CONNECTION_SETTINGS = {
         'location': 'localhost:6379',
@@ -82,7 +90,9 @@ Can subscribe to a channel dinamicaly with some parameter on url?
 -----------------------------------------------------------------
 
 Yes, you need create a subclass of ``RedisQueueView`` and overwrite the method ``get_redis_channel``.
-Example::
+Example:
+
+.. code-block:: python
 
     # urls.py
     urlpatterns = patterns('',
