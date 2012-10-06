@@ -1,14 +1,12 @@
-from setuptools import setup, find_packages
+from distutils.core import setup
 
 description="""
 HTML5 Server-Side Events for Django 1.3+
 """
 
-
-
 setup(
     name="django-sse",
-    version=':versiontools:django_sse:',
+    version='0.4.1',
     url='https://github.com/niwibe/django-sse',
     license='BSD',
     platforms=['OS Independent'],
@@ -20,15 +18,9 @@ setup(
     packages = [
         'django_sse',
     ],
-    include_package_data = True,
-    install_requires=[
-        'distribute',
+    requires = [
         'sse',
     ],
-    setup_requires = [
-        'versiontools >= 1.8',
-    ],
-    zip_safe = False,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
