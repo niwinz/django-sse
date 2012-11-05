@@ -3,6 +3,12 @@
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+
+try:
+    from django.http import StreamingHttpResponse as HttpResponse
+except ImportError:
+    from django.http import HttpResponse
+
 from django.utils.decorators import method_decorator
 from sse import Sse
 
@@ -49,8 +55,6 @@ class BaseSseView(View):
                 self.sse.add_message('foo', 'bar')
                 self.sse.add_message('bar', 'foo')
                 yield
-
-        Note: This method must be reimplemented.
 
         """
         raise NotImplementedError
