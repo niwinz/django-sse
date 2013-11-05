@@ -3,6 +3,7 @@ django-sse
 ==========
 
 Django integration with Server-Sent Events. (http://www.html5rocks.com/en/tutorials/eventsource/basics/)
+(https://developer.mozilla.org/es/docs/Server-sent_events/utilizando_server_sent_events_sse)
 
 This django application uses the module sse_, simple python implementation of sse protocol.
 
