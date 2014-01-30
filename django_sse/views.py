@@ -43,8 +43,8 @@ class BaseSseView(View):
     def iterator(self):
         """
         This is a source of stream.
-        Must be use sentence ``yield`` for flush
-        content fon sse object to the client.
+        Must use ``yield`` statement to flush
+        content from sse object to the client.
 
         Example:
 
