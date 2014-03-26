@@ -2,6 +2,9 @@
 django-sse
 ==========
 
+*Warning*: this package is now unmantained due because django is not the optimal platform for persistent connections.
+I strongly recommend use anything like tornado or asyncio with python3 for this purpose.
+
 Django integration with Server-Sent Events. (http://www.html5rocks.com/en/tutorials/eventsource/basics/)
 (https://developer.mozilla.org/es/docs/Server-sent_events/utilizando_server_sent_events_sse)
 
