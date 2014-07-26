@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import django
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 
 try:
-    from django.http import StreamingHttpResponse as HttpResponse
+    if django.VERSION < (1, 7):
+        from django.http import StreamingHttpResponse as HttpResponse
+    else:
+        from django.http.response import StreamingHttpResponse as HttpResponse
 except ImportError:
     from django.http import HttpResponse
 
